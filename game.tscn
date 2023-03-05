@@ -1,0 +1,101 @@
+[gd_scene load_steps=9 format=3 uid="uid://ojdutlu0ee5i"]
+
+[ext_resource type="Script" path="res://scripts/Player.gd" id="1_dnvg5"]
+[ext_resource type="Texture2D" uid="uid://bov0lsn2m3pdw" path="res://textures/ships/basic.png" id="2_m81es"]
+[ext_resource type="Script" path="res://scripts/Cursor.gd" id="3_0txoc"]
+[ext_resource type="Texture2D" uid="uid://csj21aecwkat6" path="res://textures/cursor.png" id="3_0vtn8"]
+[ext_resource type="Texture2D" uid="uid://b85kah0o1x2ef" path="res://textures/temp_test.jpg" id="3_5p3rj"]
+
+[sub_resource type="Gradient" id="Gradient_fo5ty"]
+colors = PackedColorArray(1, 0.180392, 0, 1, 1, 0.407843, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_e5551"]
+gradient = SubResource("Gradient_fo5ty")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xpj7m"]
+emission_shape = 1
+emission_sphere_radius = 10.0
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = -100.0
+initial_velocity_max = -10.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+angle_max = 180.0
+scale_max = 4.0
+color_ramp = SubResource("GradientTexture1D_e5551")
+
+[node name="Game" type="Node2D"]
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
+follow_viewport_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Background"]
+z_index = -1
+texture = ExtResource("3_5p3rj")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("1_dnvg5")
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+position_smoothing_enabled = true
+position_smoothing_speed = 4.0
+
+[node name="Interface" type="CanvasLayer" parent="CharacterBody2D/Camera2D"]
+
+[node name="Ammo" type="RichTextLabel" parent="CharacterBody2D/Camera2D/Interface"]
+offset_right = 400.0
+offset_bottom = 24.0
+text = "Ammo"
+metadata/_edit_use_anchors_ = true
+
+[node name="Fuel" type="RichTextLabel" parent="CharacterBody2D/Camera2D/Interface"]
+offset_top = 25.0
+offset_right = 400.0
+offset_bottom = 49.0
+text = "Fuel"
+metadata/_edit_use_anchors_ = true
+
+[node name="Health" type="RichTextLabel" parent="CharacterBody2D/Camera2D/Interface"]
+offset_top = 49.0
+offset_right = 400.0
+offset_bottom = 73.0
+text = "Health"
+metadata/_edit_use_anchors_ = true
+
+[node name="Cursor" type="Sprite2D" parent="CharacterBody2D/Camera2D/Interface"]
+texture = ExtResource("3_0vtn8")
+script = ExtResource("3_0txoc")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CharacterBody2D"]
+rotation = 1.57079
+polygon = PackedVector2Array(0, -60, 10, -40, 18, -17, 90, 0, 90, 32, 23, 35, 20, 55, 0, 55, -20, 55, -23, 35, -90, 32, -90, 0, -18, -17, -10, -40)
+
+[node name="GPUParticles2DIdle" type="GPUParticles2D" parent="CharacterBody2D/CollisionPolygon2D"]
+position = Vector2(-0.000111063, 50)
+rotation = -1.57079
+process_material = SubResource("ParticleProcessMaterial_xpj7m")
+fixed_fps = 60
+
+[node name="GPUParticles2DFlying" type="GPUParticles2D" parent="CharacterBody2D/CollisionPolygon2D"]
+position = Vector2(-8.88506e-05, 40)
+rotation = -1.57079
+process_material = SubResource("ParticleProcessMaterial_xpj7m")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D/CollisionPolygon2D"]
+texture_filter = 1
+texture = ExtResource("2_m81es")
+
+[node name="ShootingPoints" type="Node2D" parent="CharacterBody2D/CollisionPolygon2D"]
+rotation = -1.57079
+
+[node name="Point1" type="Node2D" parent="CharacterBody2D/CollisionPolygon2D/ShootingPoints"]
+position = Vector2(30, -50)
+
+[node name="Point2" type="Node2D" parent="CharacterBody2D/CollisionPolygon2D/ShootingPoints"]
+position = Vector2(30, 50)
+
+[node name="Reload" type="Timer" parent="CharacterBody2D"]
+one_shot = true
