@@ -17,14 +17,8 @@ var fuel_consumption = player_speed * weight / 10000
 # in light years (from earth to sun to earth)
 var max_speed = 0.00003
 
-# AMMO
-
-var max_bullets = 40
-var bullets = max_bullets
-# per second
-var bullets_fire_speed = 1
-var bullet_speed = 400
-var reload = 0
-
 var max_health = 100
 var health = max_health
+
+var weapons = []
+var current_weapon
