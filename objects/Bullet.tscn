@@ -8,6 +8,8 @@
 [node name="Bullet" type="RigidBody2D"]
 inertia = 3.0
 gravity_scale = 0.0
+max_contacts_reported = 1
+contact_monitor = true
 script = ExtResource("1_d7ga1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://ca4umtru47hrc"]
+[gd_scene load_steps=3 format=3 uid="uid://ca4umtru47hrc"]
 
 [ext_resource type="Script" path="res://scripts/Weapons/TwoMuzzlesWeapon.gd" id="1_c2xf3"]
+[ext_resource type="Texture2D" uid="uid://b3gnd6c21lonj" path="res://textures/dot.png" id="2_bjwe1"]
 
 [node name="TwoMuzzlesWeapon" type="Node2D"]
 script = ExtResource("1_c2xf3")
@@ -9,6 +10,14 @@ script = ExtResource("1_c2xf3")
 position = Vector2(-49.9998, -30.0003)
 rotation = -1.57079
 
+[node name="Sprite2D" type="Sprite2D" parent="Point1"]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_bjwe1")
+
 [node name="Point2" type="Node2D" parent="."]
 position = Vector2(50.0002, -29.9997)
 rotation = -1.57079
+
+[node name="Sprite2D" type="Sprite2D" parent="Point2"]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_bjwe1")
