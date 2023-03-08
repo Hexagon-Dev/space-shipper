@@ -42,9 +42,6 @@ func _physics_process(_delta):
 			if col.get_collider().name.contains('Asteroid'):
 				health -= 0.1
 			col.get_collider().apply_force(col.get_normal() * -1000)
-	
-	#apply_force(velocity * player_speed * 10, velocity)
-	$Camera2D/Interface/Debug.text = str(velocity)
 
 func damage(source):
 	health -= source.damage_amount

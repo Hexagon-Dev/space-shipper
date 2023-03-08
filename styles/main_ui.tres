@@ -1,0 +1,15 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://5n3h1qs0uw07"]
+
+[ext_resource type="FontFile" uid="uid://bvg1esa88ymyd" path="res://fonts/PressStart2P-Regular.ttf" id="1_70k2r"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xblra"]
+bg_color = Color(0.431373, 0.415686, 0.435294, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[resource]
+default_font = ExtResource("1_70k2r")
+default_font_size = 16
+Panel/styles/panel = SubResource("StyleBoxFlat_xblra")

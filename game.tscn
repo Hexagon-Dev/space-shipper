@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ojdutlu0ee5i"]
+[gd_scene load_steps=19 format=3 uid="uid://c0c4peehlv0mt"]
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_dnvg5"]
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_ud5wx"]
@@ -7,7 +7,17 @@
 [ext_resource type="Texture2D" uid="uid://csj21aecwkat6" path="res://textures/cursor.png" id="3_0vtn8"]
 [ext_resource type="Script" path="res://scripts/Interface.gd" id="3_2w5jr"]
 [ext_resource type="Texture2D" uid="uid://b85kah0o1x2ef" path="res://textures/temp_test.jpg" id="3_5p3rj"]
+[ext_resource type="Theme" uid="uid://5n3h1qs0uw07" path="res://styles/main_ui.tres" id="5_0mr4e"]
+[ext_resource type="Texture2D" uid="uid://d37u2xmpmjiep" path="res://textures/icons/fuel.svg" id="6_0egov"]
+[ext_resource type="Texture2D" uid="uid://43urswem7l6n" path="res://textures/icons/ammo.svg" id="7_b7nje"]
+[ext_resource type="FontFile" uid="uid://bvg1esa88ymyd" path="res://fonts/PressStart2P-Regular.ttf" id="7_ifv8g"]
 [ext_resource type="PackedScene" uid="uid://c2hkc0gk1k8fx" path="res://objects/Asteroid.tscn" id="7_imbn4"]
+[ext_resource type="Texture2D" uid="uid://dw75pqxvvw0po" path="res://textures/icons/health.svg" id="7_xchu4"]
+[ext_resource type="Texture2D" uid="uid://cdv10dej635bt" path="res://textures/icons/reload.svg" id="8_s3rjr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rjlqb"]
+bg_color = Color(0.431373, 0.415686, 0.435294, 1)
+corner_radius_bottom_right = 20
 
 [sub_resource type="Gradient" id="Gradient_fo5ty"]
 colors = PackedColorArray(1, 0.180392, 0, 1, 1, 0.407843, 0, 0)
@@ -50,31 +60,113 @@ position_smoothing_speed = 4.0
 [node name="Interface" type="CanvasLayer" parent="CharacterBody2D/Camera2D"]
 script = ExtResource("3_2w5jr")
 
-[node name="Ammo" type="RichTextLabel" parent="CharacterBody2D/Camera2D/Interface"]
-offset_right = 400.0
-offset_bottom = 24.0
-text = "Ammo"
+[node name="PlayerStats" type="MarginContainer" parent="CharacterBody2D/Camera2D/Interface"]
+offset_right = 210.0
+offset_bottom = 152.0
+
+[node name="Bg" type="Panel" parent="CharacterBody2D/Camera2D/Interface/PlayerStats"]
+layout_mode = 2
+theme = ExtResource("5_0mr4e")
+theme_override_styles/panel = SubResource("StyleBoxFlat_rjlqb")
+
+[node name="Margin" type="MarginContainer" parent="CharacterBody2D/Camera2D/Interface/PlayerStats"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="Cols" type="VBoxContainer" parent="CharacterBody2D/Camera2D/Interface/PlayerStats/Margin"]
+layout_mode = 2
+theme = ExtResource("5_0mr4e")
+alignment = 1
+
+[node name="Ammo" type="HBoxContainer" parent="CharacterBody2D/Camera2D/Interface/PlayerStats/Margin/Cols"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 0
+alignment = 1
+
+[node name="BoxContainer" type="BoxContainer" parent="CharacterBody2D/Camera2D/Interface/PlayerStats/Margin/Cols/Ammo"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Icon" type="TextureRect" parent="CharacterBody2D/Camera2D/Interface/PlayerStats/Margin/Cols/Ammo/BoxContainer"]
+modulate = Color(0.580392, 0.772549, 0.584314, 1)
+texture_filter = 1
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("7_b7nje")
+
+[node name="Text" type="RichTextLabel" parent="CharacterBody2D/Camera2D/Interface/PlayerStats/Margin/Cols/Ammo"]
+custom_minimum_size = Vector2(120, 16)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_fonts/normal_font = ExtResource("7_ifv8g")
+text = "100/100"
+shortcut_keys_enabled = false
 metadata/_edit_use_anchors_ = true
 
-[node name="Fuel" type="RichTextLabel" parent="CharacterBody2D/Camera2D/Interface"]
-offset_top = 25.0
-offset_right = 400.0
-offset_bottom = 49.0
-text = "Fuel"
+[node name="Reload" type="BoxContainer" parent="CharacterBody2D/Camera2D/Interface/PlayerStats/Margin/Cols/Ammo"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Icon" type="TextureRect" parent="CharacterBody2D/Camera2D/Interface/PlayerStats/Margin/Cols/Ammo/Reload"]
+visible = false
+modulate = Color(0.580392, 0.772549, 0.584314, 1)
+texture_filter = 1
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("8_s3rjr")
+
+[node name="Fuel" type="HBoxContainer" parent="CharacterBody2D/Camera2D/Interface/PlayerStats/Margin/Cols"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+
+[node name="BoxContainer" type="BoxContainer" parent="CharacterBody2D/Camera2D/Interface/PlayerStats/Margin/Cols/Fuel"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Icon" type="TextureRect" parent="CharacterBody2D/Camera2D/Interface/PlayerStats/Margin/Cols/Fuel/BoxContainer"]
+modulate = Color(0.580392, 0.772549, 0.584314, 1)
+texture_filter = 1
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("6_0egov")
+
+[node name="Text" type="RichTextLabel" parent="CharacterBody2D/Camera2D/Interface/PlayerStats/Margin/Cols/Fuel"]
+custom_minimum_size = Vector2(160, 16)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_fonts/normal_font = ExtResource("7_ifv8g")
+text = "100/100"
+shortcut_keys_enabled = false
 metadata/_edit_use_anchors_ = true
 
-[node name="Health" type="RichTextLabel" parent="CharacterBody2D/Camera2D/Interface"]
-offset_top = 49.0
-offset_right = 400.0
-offset_bottom = 73.0
-text = "Health"
-metadata/_edit_use_anchors_ = true
+[node name="Health" type="HBoxContainer" parent="CharacterBody2D/Camera2D/Interface/PlayerStats/Margin/Cols"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
 
-[node name="Debug" type="RichTextLabel" parent="CharacterBody2D/Camera2D/Interface"]
-offset_top = 73.0
-offset_right = 400.0
-offset_bottom = 97.0
-text = "D"
+[node name="BoxContainer" type="BoxContainer" parent="CharacterBody2D/Camera2D/Interface/PlayerStats/Margin/Cols/Health"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Icon" type="TextureRect" parent="CharacterBody2D/Camera2D/Interface/PlayerStats/Margin/Cols/Health/BoxContainer"]
+modulate = Color(0.580392, 0.772549, 0.584314, 1)
+texture_filter = 1
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("7_xchu4")
+
+[node name="Text" type="RichTextLabel" parent="CharacterBody2D/Camera2D/Interface/PlayerStats/Margin/Cols/Health"]
+custom_minimum_size = Vector2(150, 16)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_fonts/normal_font = ExtResource("7_ifv8g")
+text = "100/100"
+shortcut_keys_enabled = false
 metadata/_edit_use_anchors_ = true
 
 [node name="Cursor" type="Sprite2D" parent="CharacterBody2D/Camera2D/Interface"]
@@ -97,11 +189,11 @@ position = Vector2(0, 40)
 rotation = -1.57079
 process_material = SubResource("ParticleProcessMaterial_xpj7m")
 
+[node name="Weapons" type="Node2D" parent="CharacterBody2D/Player"]
+
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D/Player"]
 texture_filter = 1
 texture = ExtResource("2_m81es")
-
-[node name="Weapons" type="Node2D" parent="CharacterBody2D/Player"]
 
 [node name="Asteroid" parent="." instance=ExtResource("7_imbn4")]
 position = Vector2(310, 140)
