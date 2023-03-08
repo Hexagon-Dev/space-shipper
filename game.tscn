@@ -50,7 +50,11 @@ follow_viewport_enabled = true
 z_index = -1
 texture = ExtResource("3_5p3rj")
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+[node name="CharacterBody2D" type="RigidBody2D" parent="."]
+mass = 1000.0
+gravity_scale = 0.0
+max_contacts_reported = 5
+contact_monitor = true
 script = ExtResource("1_dnvg5")
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
@@ -59,6 +63,8 @@ position_smoothing_speed = 4.0
 
 [node name="Interface" type="CanvasLayer" parent="CharacterBody2D/Camera2D"]
 script = ExtResource("3_2w5jr")
+
+[node name="Canvas" type="Node2D" parent="CharacterBody2D/Camera2D/Interface"]
 
 [node name="PlayerStats" type="MarginContainer" parent="CharacterBody2D/Camera2D/Interface"]
 offset_right = 210.0

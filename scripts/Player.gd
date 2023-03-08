@@ -2,7 +2,7 @@ extends BasicShip
 
 var particles_flying
 var rotation_dir = 0
-var spin_thrust = 2500
+var velocity = Vector2.ZERO
 
 const TwoMuzzlesWeapon = preload("res://objects/TwoMuzzlesWeapon.tscn")
 
@@ -16,35 +16,43 @@ func _ready():
 	$Player/GPUParticles2DIdle.amount = weight / 20
 
 func _process(_delta):
-	queue_redraw()
+	$Camera2D/Interface/Canvas.queue_redraw()
 
-func _physics_process(_delta):
-	var mouse = get_global_mouse_position()
-	
-	if Input.is_action_pressed("left_click"):
-		velocity += (mouse - global_position).limit_length(300) * (player_speed / 1000)
+func _integrate_forces(state):
+	if Input.is_action_pressed("arrow_up"):
 		fuel -= fuel_consumption
-		
+		velocity = lerp(velocity, Vector2(player_speed * 8, 0), 0.05)
 		if particles_flying.emitting != true:
 			particles_flying.emitting = true
-	else:
-		if particles_flying.emitting != false:
+	if Input.is_action_pressed("arrow_down"):
+		fuel -= fuel_consumption
+		velocity = lerp(velocity, Vector2(-player_speed * 8, 0), 0.05)
+		if particles_flying.emitting != true:
+			particles_flying.emitting = true
+
+	if particles_flying.emitting != false:
 			particles_flying.emitting = false
 
-	rotation = lerp_angle(rotation, (global_position - mouse).normalized().angle() - PI / 2, rotation_weight)
-	
+	rotation_dir = 0
+
+	if Input.is_action_pressed("arrow_right"):
+		rotation_dir += 1
+	if Input.is_action_pressed("arrow_left"):
+		rotation_dir -= 1
+
+	apply_force(velocity.rotated(rotation - PI / 2))
+	apply_torque(rotation_dir * player_speed * 100)
+
 	velocity *= 0.98
-	move_and_slide()
 	
-	for i in get_slide_collision_count():
-		var col = get_slide_collision(i)
-		if col.get_collider() is RigidBody2D:
-			if col.get_collider().name.contains('Asteroid'):
+	for col in get_colliding_bodies():
+		if col is RigidBody2D:
+			if col.name.contains('Asteroid'):
+				print(str(col.linear_velocity))
 				health -= 0.1
-			col.get_collider().apply_force(col.get_normal() * -1000)
 
 func damage(source):
 	health -= source.damage_amount
 
 func _draw():
-	draw_line(Vector2.ZERO, velocity, Color(1,1,1), 3)
+	$Camera2D/Interface/Canvas.draw_line(Vector2.ZERO, to_global(velocity), Color(1,1,1), 3)

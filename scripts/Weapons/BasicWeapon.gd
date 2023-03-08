@@ -23,7 +23,8 @@ func _process(delta):
 			var b = bullet.instantiate()
 			$/root/Game.add_child(b)
 			b.global_position = point.get_global_position()
-			b.rotation_degrees = player.rotation_degrees
+			b.look_at(get_global_mouse_position())
+			b.add_collision_exception_with(player)
 			b.linear_velocity = -(b.global_position - get_global_mouse_position()).normalized() * bullet_speed
 			bullets -= 1
 		reloading = true

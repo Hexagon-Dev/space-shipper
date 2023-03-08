@@ -49,6 +49,7 @@ script = ExtResource("1_d7ga1")
 texture = ExtResource("1_c2tgv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.57079
 shape = SubResource("RectangleShape2D_x7lvi")
 one_way_collision = true
 
