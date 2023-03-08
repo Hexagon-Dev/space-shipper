@@ -1,7 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://cd54026b41ayj"]
+[gd_scene load_steps=8 format=3 uid="uid://crn0lts613g5h"]
 
-[ext_resource type="Texture2D" uid="uid://b3gnd6c21lonj" path="res://textures/dot.png" id="1_c2tgv"]
-[ext_resource type="Script" path="res://scripts/Bullet.gd" id="1_d7ga1"]
+[ext_resource type="Script" path="res://scripts/Rocket.gd" id="1_x4wgq"]
+[ext_resource type="Texture2D" uid="uid://b3gnd6c21lonj" path="res://textures/dot.png" id="2_yk1oo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x7lvi"]
 
@@ -43,10 +43,10 @@ inertia = 3.0
 gravity_scale = 0.0
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("1_d7ga1")
+script = ExtResource("1_x4wgq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_c2tgv")
+texture = ExtResource("2_yk1oo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.57079

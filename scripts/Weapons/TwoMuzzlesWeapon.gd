@@ -1,3 +1,4 @@
 extends BasicWeapon
 
-var type = 'TwoMuzzlesWeapon'
+func _ready():
+	type = "TwoMuzzlesWeapon"

@@ -3,7 +3,7 @@
 [ext_resource type="FontFile" uid="uid://bvg1esa88ymyd" path="res://fonts/PressStart2P-Regular.ttf" id="1_70k2r"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xblra"]
-bg_color = Color(0.431373, 0.415686, 0.435294, 1)
+bg_color = Color(0.176471, 0.227451, 0.227451, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
