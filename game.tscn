@@ -1,13 +1,16 @@
-[gd_scene load_steps=21 format=3 uid="uid://c0c4peehlv0mt"]
+[gd_scene load_steps=25 format=3 uid="uid://c0c4peehlv0mt"]
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_dnvg5"]
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_ud5wx"]
+[ext_resource type="Script" path="res://scripts/Background.gd" id="2_fgpvo"]
 [ext_resource type="Texture2D" uid="uid://bov0lsn2m3pdw" path="res://textures/ships/basic.png" id="2_m81es"]
 [ext_resource type="Script" path="res://scripts/Cursor.gd" id="3_0txoc"]
 [ext_resource type="Texture2D" uid="uid://csj21aecwkat6" path="res://textures/cursor.png" id="3_0vtn8"]
 [ext_resource type="Script" path="res://scripts/Interface.gd" id="3_2w5jr"]
 [ext_resource type="Texture2D" uid="uid://b85kah0o1x2ef" path="res://textures/temp_test.jpg" id="3_5p3rj"]
+[ext_resource type="Shader" path="res://shaders/stars.gdshader" id="4_4pkfn"]
 [ext_resource type="Script" path="res://scripts/Camera.gd" id="4_ayx87"]
+[ext_resource type="Script" path="res://scripts/Stars.gd" id="4_r27f3"]
 [ext_resource type="Theme" uid="uid://5n3h1qs0uw07" path="res://styles/main_ui.tres" id="5_0mr4e"]
 [ext_resource type="Texture2D" uid="uid://d37u2xmpmjiep" path="res://textures/icons/fuel.svg" id="6_0egov"]
 [ext_resource type="Texture2D" uid="uid://43urswem7l6n" path="res://textures/icons/ammo.svg" id="7_b7nje"]
@@ -41,14 +44,21 @@ angle_max = 180.0
 scale_max = 4.0
 color_ramp = SubResource("GradientTexture1D_e5551")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eqmm8"]
+shader = ExtResource("4_4pkfn")
+shader_parameter/octaves = 5
+shader_parameter/viewport_size = Vector2(800, 600)
+shader_parameter/player_position = Vector2(800, 600)
+shader_parameter/x_offset = 0.0
+
 [node name="Game" type="Node2D"]
 script = ExtResource("1_ud5wx")
 
-[node name="Background" type="CanvasLayer" parent="."]
-layer = -1
-follow_viewport_enabled = true
+[node name="Background" type="Node2D" parent="."]
+script = ExtResource("2_fgpvo")
 
 [node name="Sprite2D" type="Sprite2D" parent="Background"]
+visible = false
 z_index = -1
 texture = ExtResource("3_5p3rj")
 
@@ -239,6 +249,17 @@ process_material = SubResource("ParticleProcessMaterial_xpj7m")
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D/Player"]
 texture_filter = 1
 texture = ExtResource("2_m81es")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="CharacterBody2D"]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="CharacterBody2D/CanvasLayer"]
+material = SubResource("ShaderMaterial_eqmm8")
+custom_minimum_size = Vector2(1920, 1080)
+offset_right = 1920.0
+offset_bottom = 1080.0
+script = ExtResource("4_r27f3")
+metadata/_edit_use_anchors_ = true
 
 [node name="Asteroid" parent="." instance=ExtResource("7_imbn4")]
 position = Vector2(310, 140)

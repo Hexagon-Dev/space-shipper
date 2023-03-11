@@ -41,7 +41,7 @@ func _integrate_forces(state):
 			particles_flying.emitting = true
 
 	if particles_flying.emitting != false:
-			particles_flying.emitting = false
+		particles_flying.emitting = false
 
 	apply_force(velocity.rotated(rotation - PI / 2))
 	apply_torque(Input.get_axis("arrow_left", "arrow_right") * player_speed * 100)
