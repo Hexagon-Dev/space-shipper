@@ -1,11 +1,9 @@
 shader_type canvas_item;
 
 uniform int octaves = 5;
-uniform vec2 viewport_size = vec2(800.0, 600.0);
+uniform vec2 viewport_size = vec2(1920.0, 1080.0);
 uniform vec2 player_position = vec2(0, 0);
-uniform float x_offset = 0.;
-
-varying vec2 vtx;
+uniform vec2 displacement = vec2(0, 0);
 
 vec3 mod289(vec3 x)
 {
@@ -26,7 +24,7 @@ vec3 permute(vec3 x)
 // https://github.com/ashima/webgl-noise 
 // Copyright (C) 2011 Ashima Arts. All rights reserved.
 float snoise(vec2 v)
-  {
+{
   const vec4 C = vec4(0.211324865405187,  // (3.0-sqrt(3.0))/6.0
                       0.366025403784439,  // 0.5*(sqrt(3.0)-1.0)
                      -0.577350269189626,  // -1.0 + 2.0 * C.x
@@ -52,7 +50,6 @@ float snoise(vec2 v)
 
 // Gradients: 41 points uniformly over a line, mapped onto a diamond.
 // The ring size 17*17 = 289 is close to a multiple of 41 (41*7 = 287)
-
   vec3 x = 2.0 * fract(p * C.www) - 1.0;
   vec3 h = abs(x) - 0.5;
   vec3 ox = floor(x + 0.5);
@@ -119,7 +116,7 @@ float fractalNoise(in vec2 coord, in float persistence, in float lacunarity)
     float amplitude = 1.;
     for (int o = 0; o < octaves; ++o)
     {
-        n += amplitude * snoise(coord * frequency);
+        n += amplitude * snoise((coord + displacement) * frequency);
         amplitude *= persistence;
         frequency *= lacunarity;
     }
@@ -144,19 +141,14 @@ vec4 mainImage(vec2 fragCoord)
 
 	result += fractalNebula(coord + player_position * 0.00005 + vec2(.1, .1), nebulaColor1, 1.);
 	result += fractalNebula(coord + player_position * 0.00005 + vec2(0., .2), nebulaColor2, .5);
-	result += stars(coord + player_position * 0.0002, 4., 0.1, 2.) * vec3(.74, .74, .74);
-    result += stars(coord + player_position * 0.0001, 8., 0.05, 1.) * vec3(.97, .74, .74);
-    result += stars(coord + player_position * 0.00005, 16., 0.025, 0.5) * vec3(.9, .9, .95);
+	result += stars(coord + displacement + player_position * 0.0002, 4., 0.1, 2.) * vec3(.74, .74, .74);
+    result += stars(coord + displacement + player_position * 0.0001, 8., 0.05, 1.) * vec3(.97, .74, .74);
+    result += stars(coord + displacement + player_position * 0.00005, 16., 0.025, 0.5) * vec3(.9, .9, .95);
 	
 	return vec4(result, 1.);
 }
 
-void vertex()
-{
-	vtx = VERTEX + vec2(x_offset, 0.);
-}
-
 void fragment()
 {
-	COLOR = mainImage(vtx);
+	COLOR = mainImage(VERTEX);
 }
