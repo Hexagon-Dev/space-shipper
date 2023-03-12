@@ -13,7 +13,7 @@ func _ready():
 	# TODO: Set seed from save
 	rng.seed = hash(randi_range(0, 1000)) if is_menu else hash(1111)
 	var displacement = rng.randf_range(0, 6000)
-	print(displacement)
+
 	material.set_shader_parameter("viewport_size", get_viewport_rect().size)
 	material.set_shader_parameter("displacement", Vector2(displacement, displacement))
 

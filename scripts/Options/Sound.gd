@@ -11,14 +11,13 @@ func _ready():
 	var err = config.load("user://options.cfg")
 
 	if err:
-		print("Errored to load settings")
 		return
 	
 	var master_volume = config.get_value("sound", "master_volume")
 	var music_volume = config.get_value("sound", "music_volume")
 	var ambient_volume = config.get_value("sound", "ambient_volume")
 	var sounds_volume = config.get_value("sound", "sounds_volume")
-	print(master_volume, music_volume, ambient_volume, sounds_volume)
+
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), master_volume)
 	master_value.text = str(100 - int(master_volume / -80 * 100)) + "%"
 	$Margin/VBox/Master/MasterVolume.set_value_no_signal(master_volume)
@@ -43,10 +42,7 @@ func save():
 	config.set_value("sound", "ambient_volume", AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Ambient")))
 	config.set_value("sound", "sounds_volume", AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Sounds")))
 	
-	var err = config.save("user://options.cfg")
-	
-	if err:
-		print("Errored to save settings")
+	config.save("user://options.cfg")
 
 func _on_master_volume_value_changed(value):
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), value)
