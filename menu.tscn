@@ -269,7 +269,6 @@ text = "Max FPS
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-selected = 0
 
 [node name="Sound" type="TabBar" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs"]
 visible = false

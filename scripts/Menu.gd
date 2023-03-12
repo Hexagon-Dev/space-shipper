@@ -23,6 +23,7 @@ func _on_options_pressed():
 	destination_position = OPTIONS_MENU
 
 func _on_options_back_pressed():
+	$Options/NinePatchRect/VBox/Center/Tabs/Sound.save()
 	destination_position = MAIN_MENU
 
 func _on_titles_pressed():
