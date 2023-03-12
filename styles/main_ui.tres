@@ -105,4 +105,4 @@ Button/styles/normal = SubResource("StyleBoxFlat_c2t1y")
 Button/styles/pressed = SubResource("StyleBoxFlat_qatgq")
 Panel/font_sizes/default_font_size = 20
 Panel/styles/panel = SubResource("StyleBoxFlat_xblra")
-RichTextLabel/font_sizes/normal_font_size = 30
+RichTextLabel/font_sizes/normal_font_size = 16

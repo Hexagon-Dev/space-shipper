@@ -10,7 +10,7 @@ var destination_position = Vector2.ZERO
 
 @onready var camera: Camera2D = $/root/Menu/Camera2D
 
-func _process(delta):
+func _physics_process(delta):
 	if Input.is_action_just_pressed("escape"):
 		destination_position = MAIN_MENU
 	

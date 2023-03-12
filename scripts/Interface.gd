@@ -32,6 +32,8 @@ func initWeaponsUI():
 		$WeaponContainer/HBox.add_child(cell)
 
 func _process(_delta):
+	$Debug.text = "FPS: " + str(Engine.get_frames_per_second())
+	
 	# TODO: Refactor bullets changing
 	if (player.current_weapon.bullets):
 		$PlayerStats/Margin/Cols/Ammo/Text.text = str(player.current_weapon.bullets) + "/" + str(player.current_weapon.max_bullets)

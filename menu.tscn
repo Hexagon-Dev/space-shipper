@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://coivutpp2emow"]
+[gd_scene load_steps=10 format=3 uid="uid://coivutpp2emow"]
 
 [ext_resource type="Shader" path="res://shaders/stars.gdshader" id="1_pqq62"]
 [ext_resource type="Theme" uid="uid://5n3h1qs0uw07" path="res://styles/main_ui.tres" id="1_x1t1r"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/Menu.gd" id="2_rpw4b"]
 [ext_resource type="Texture2D" uid="uid://dht1068ha7imc" path="res://textures/ui.png" id="4_70vyp"]
 [ext_resource type="Script" path="res://scripts/Options/Sound.gd" id="5_2bims"]
+[ext_resource type="Script" path="res://scripts/Options/Graphics.gd" id="5_rhdy3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kxwcg"]
 shader = ExtResource("1_pqq62")
@@ -25,10 +26,10 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 576.0
-offset_top = 324.0
-offset_right = 576.0
-offset_bottom = 324.0
+offset_left = 640.0
+offset_top = 360.0
+offset_right = 640.0
+offset_bottom = 360.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_x1t1r")
@@ -184,6 +185,91 @@ tab_alignment = 1
 
 [node name="Graphics" type="TabBar" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs"]
 layout_mode = 2
+script = ExtResource("5_rhdy3")
+
+[node name="Margin" type="MarginContainer" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Graphics"]
+custom_minimum_size = Vector2(560, 0)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Graphics/Margin"]
+layout_mode = 2
+
+[node name="Resolution" type="HBoxContainer" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Graphics/Margin/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Graphics/Margin/VBox/Resolution"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Resolution"
+
+[node name="SelectResolution" type="OptionButton" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Graphics/Margin/VBox/Resolution"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="WindowMode" type="HBoxContainer" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Graphics/Margin/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Graphics/Margin/VBox/WindowMode"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Window mode"
+
+[node name="SelectWindowMode" type="OptionButton" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Graphics/Margin/VBox/WindowMode"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 3
+selected = 2
+popup/item_0/text = "Fullscreen"
+popup/item_0/id = 0
+popup/item_1/text = "Borderless"
+popup/item_1/id = 1
+popup/item_2/text = "Windowed"
+popup/item_2/id = 2
+
+[node name="VSync" type="HBoxContainer" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Graphics/Margin/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Graphics/Margin/VBox/VSync"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Vsync
+"
+
+[node name="SelectVsync" type="OptionButton" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Graphics/Margin/VBox/VSync"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 3
+selected = 0
+popup/item_0/text = "Disabled"
+popup/item_0/id = 0
+popup/item_1/text = "Enabled"
+popup/item_1/id = 1
+popup/item_2/text = "Adaptive"
+popup/item_2/id = 2
+
+[node name="MaxFPS" type="HBoxContainer" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Graphics/Margin/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Graphics/Margin/VBox/MaxFPS"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Max FPS
+"
+
+[node name="SelectMaxFPS" type="OptionButton" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Graphics/Margin/VBox/MaxFPS"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
 
 [node name="Sound" type="TabBar" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs"]
 visible = false
@@ -380,6 +466,10 @@ metadata/_edit_use_anchors_ = true
 [connection signal="pressed" from="Menu/Main/Center/VBox/VBox/Titles" to="Menu" method="_on_titles_pressed"]
 [connection signal="pressed" from="Menu/Main/Center/VBox/VBox/Exit" to="Menu" method="_on_exit_pressed"]
 [connection signal="pressed" from="Menu/Options/NinePatchRect/VBox/Control/OptionsBack" to="Menu" method="_on_options_back_pressed"]
+[connection signal="item_selected" from="Menu/Options/NinePatchRect/VBox/Center/Tabs/Graphics/Margin/VBox/Resolution/SelectResolution" to="Menu/Options/NinePatchRect/VBox/Center/Tabs/Graphics" method="_on_select_resolution_item_selected"]
+[connection signal="item_selected" from="Menu/Options/NinePatchRect/VBox/Center/Tabs/Graphics/Margin/VBox/WindowMode/SelectWindowMode" to="Menu/Options/NinePatchRect/VBox/Center/Tabs/Graphics" method="_on_select_window_mode_item_selected"]
+[connection signal="item_selected" from="Menu/Options/NinePatchRect/VBox/Center/Tabs/Graphics/Margin/VBox/VSync/SelectVsync" to="Menu/Options/NinePatchRect/VBox/Center/Tabs/Graphics" method="_on_select_vsync_item_selected"]
+[connection signal="item_selected" from="Menu/Options/NinePatchRect/VBox/Center/Tabs/Graphics/Margin/VBox/MaxFPS/SelectMaxFPS" to="Menu/Options/NinePatchRect/VBox/Center/Tabs/Graphics" method="_on_select_max_fps_item_selected"]
 [connection signal="value_changed" from="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Master/MasterVolume" to="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound" method="_on_master_volume_value_changed"]
 [connection signal="value_changed" from="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Music/MusicVolume" to="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound" method="_on_music_volume_value_changed"]
 [connection signal="value_changed" from="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Sounds/SoundVolume" to="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound" method="_on_sound_volume_value_changed"]
