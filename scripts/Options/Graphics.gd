@@ -23,6 +23,40 @@ const fps_limits = [30, 60, 75, 120, 144, 165, 240]
 @onready var vsync = $Margin/VBox/VSync/SelectVsync
 @onready var max_fps = $Margin/VBox/MaxFPS/SelectMaxFPS
 
+func loadData(config):
+	var window_mode_value = config.get_value("graphics", "window_mode")
+
+	if window_mode_value:
+		_on_select_window_mode_item_selected(window_mode_value)
+		window_mode.select(window_mode_value)
+	
+	var resolution_value = config.get_value("graphics", "resolution")
+	
+	if resolution_value && window_mode_value == 2:
+		_on_select_resolution_item_selected(resolution_value)
+		resolution_dropdown.select(resolution_value)
+	
+	var vsync_value = config.get_value("graphics", "vsync")
+	
+	if vsync_value:
+		_on_select_vsync_item_selected(vsync_value)
+		vsync.selected = vsync_value
+	
+	var max_fps_value = config.get_value("graphics", "max_fps")
+
+	if max_fps_value:
+		var index = fps_limits.find(max_fps_value, 0)
+		if !index:
+			return
+		_on_select_max_fps_item_selected(index)
+		max_fps.select(index)
+
+func saveData(config: ConfigFile):
+	config.set_value("graphics", "window_mode", window_mode.get_selected_id())
+	config.set_value("graphics", "resolution", resolution_dropdown.get_selected_id())
+	config.set_value("graphics", "vsync", vsync.selected)
+	config.set_value("graphics", "max_fps", Engine.max_fps)
+
 func _ready():
 	Engine.max_fps = DisplayServer.screen_get_refresh_rate()
 	vsync.select(DisplayServer.window_get_vsync_mode())

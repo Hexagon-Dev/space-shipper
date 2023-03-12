@@ -277,9 +277,9 @@ script = ExtResource("5_2bims")
 
 [node name="Margin" type="MarginContainer" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound"]
 custom_minimum_size = Vector2(560, 0)
-layout_mode = 1
-offset_right = 400.0
-offset_bottom = 39.0
+layout_mode = 0
+offset_right = 560.0
+offset_bottom = 108.0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
@@ -296,7 +296,7 @@ size_flags_horizontal = 8
 [node name="Label" type="Label" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Master"]
 layout_mode = 2
 size_flags_horizontal = 2
-text = "MASTER LEVEL"
+text = "Master level"
 
 [node name="MasterVolume" type="HSlider" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Master"]
 custom_minimum_size = Vector2(250, 0)
@@ -320,7 +320,7 @@ size_flags_horizontal = 8
 [node name="Label" type="Label" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Music"]
 layout_mode = 2
 size_flags_horizontal = 2
-text = "MUSIC LEVEL"
+text = "Music level"
 
 [node name="MusicVolume" type="HSlider" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Music"]
 custom_minimum_size = Vector2(250, 0)
@@ -336,30 +336,6 @@ custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 text = "100%"
 
-[node name="Sounds" type="HBoxContainer" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox"]
-custom_minimum_size = Vector2(540, 0)
-layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="Label" type="Label" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Sounds"]
-layout_mode = 2
-size_flags_horizontal = 2
-text = "SOUND LEVEL"
-
-[node name="SoundVolume" type="HSlider" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Sounds"]
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
-min_value = -80.0
-max_value = 0.0
-
-[node name="Margin" type="MarginContainer" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Sounds"]
-layout_mode = 2
-
-[node name="Value" type="Label" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Sounds/Margin"]
-custom_minimum_size = Vector2(64, 0)
-layout_mode = 2
-text = "100%"
-
 [node name="Ambient" type="HBoxContainer" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox"]
 custom_minimum_size = Vector2(540, 0)
 layout_mode = 2
@@ -368,7 +344,7 @@ size_flags_horizontal = 8
 [node name="Label" type="Label" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Ambient"]
 layout_mode = 2
 size_flags_horizontal = 2
-text = "SOUND LEVEL"
+text = "Ambient level"
 
 [node name="AmbientVolume" type="HSlider" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Ambient"]
 custom_minimum_size = Vector2(250, 0)
@@ -380,6 +356,30 @@ max_value = 0.0
 layout_mode = 2
 
 [node name="Value" type="Label" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Ambient/Margin"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+text = "100%"
+
+[node name="Sounds" type="HBoxContainer" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox"]
+custom_minimum_size = Vector2(540, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Label" type="Label" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Sounds"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Sound level"
+
+[node name="SoundVolume" type="HSlider" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Sounds"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+min_value = -80.0
+max_value = 0.0
+
+[node name="Margin" type="MarginContainer" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Sounds"]
+layout_mode = 2
+
+[node name="Value" type="Label" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Sounds/Margin"]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 text = "100%"
@@ -471,6 +471,6 @@ metadata/_edit_use_anchors_ = true
 [connection signal="item_selected" from="Menu/Options/NinePatchRect/VBox/Center/Tabs/Graphics/Margin/VBox/MaxFPS/SelectMaxFPS" to="Menu/Options/NinePatchRect/VBox/Center/Tabs/Graphics" method="_on_select_max_fps_item_selected"]
 [connection signal="value_changed" from="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Master/MasterVolume" to="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound" method="_on_master_volume_value_changed"]
 [connection signal="value_changed" from="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Music/MusicVolume" to="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound" method="_on_music_volume_value_changed"]
-[connection signal="value_changed" from="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Sounds/SoundVolume" to="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound" method="_on_sound_volume_value_changed"]
 [connection signal="value_changed" from="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Ambient/AmbientVolume" to="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound" method="_on_ambient_volume_value_changed"]
+[connection signal="value_changed" from="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Sounds/SoundVolume" to="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound" method="_on_sound_volume_value_changed"]
 [connection signal="pressed" from="Menu/Titles/NinePatchRect/MarginContainer/TitlesBack" to="Menu" method="_on_titles_back_pressed"]
