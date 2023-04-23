@@ -18,7 +18,6 @@ func _ready():
 func initWeaponsUI():
 	for i in len(player.weapons):
 		var weapon = player.weapons[i]
-		print(weapon.type)
 		var cell = Panel.new()
 		cell.name = weapon.type
 		var text = RichTextLabel.new()
@@ -32,7 +31,7 @@ func initWeaponsUI():
 		$WeaponContainer/HBox.add_child(cell)
 
 func _process(_delta):
-	$Debug.text = "FPS: " + str(Engine.get_frames_per_second())
+	$Debug.text = "linear_velocity: " + str(player.linear_velocity)
 	
 	# TODO: Refactor bullets changing
 	if (player.current_weapon.bullets):

@@ -7,12 +7,12 @@
 [ext_resource type="Script" path="res://scripts/Cursor.gd" id="3_0txoc"]
 [ext_resource type="Texture2D" uid="uid://csj21aecwkat6" path="res://textures/cursor.png" id="3_0vtn8"]
 [ext_resource type="Script" path="res://scripts/Interface.gd" id="3_2w5jr"]
-[ext_resource type="Texture2D" uid="uid://b85kah0o1x2ef" path="res://textures/temp_test.jpg" id="3_5p3rj"]
 [ext_resource type="Shader" path="res://shaders/stars.gdshader" id="4_4pkfn"]
 [ext_resource type="Script" path="res://scripts/Camera.gd" id="4_ayx87"]
 [ext_resource type="Script" path="res://scripts/Stars.gd" id="4_r27f3"]
 [ext_resource type="Theme" uid="uid://5n3h1qs0uw07" path="res://styles/main_ui.tres" id="5_0mr4e"]
 [ext_resource type="Texture2D" uid="uid://d37u2xmpmjiep" path="res://textures/icons/fuel.svg" id="6_0egov"]
+[ext_resource type="PackedScene" uid="uid://se3kdal6qneg" path="res://objects/Pause.tscn" id="6_06nwj"]
 [ext_resource type="Texture2D" uid="uid://43urswem7l6n" path="res://textures/icons/ammo.svg" id="7_b7nje"]
 [ext_resource type="FontFile" uid="uid://bvg1esa88ymyd" path="res://fonts/PressStart2P-Regular.ttf" id="7_ifv8g"]
 [ext_resource type="PackedScene" uid="uid://c2hkc0gk1k8fx" path="res://objects/Asteroid.tscn" id="7_imbn4"]
@@ -54,14 +54,6 @@ shader_parameter/displacement = Vector2(0, 0)
 [node name="Game" type="Node2D"]
 script = ExtResource("1_ud5wx")
 
-[node name="Background" type="Node2D" parent="."]
-script = ExtResource("2_fgpvo")
-
-[node name="Sprite2D" type="Sprite2D" parent="Background"]
-visible = false
-z_index = -1
-texture = ExtResource("3_5p3rj")
-
 [node name="CharacterBody2D" type="RigidBody2D" parent="."]
 mass = 1000.0
 gravity_scale = 0.0
@@ -77,6 +69,11 @@ target = NodePath("../Player")
 
 [node name="Interface" type="CanvasLayer" parent="CharacterBody2D/Camera2D"]
 script = ExtResource("3_2w5jr")
+
+[node name="Pause" parent="CharacterBody2D/Camera2D/Interface" instance=ExtResource("6_06nwj")]
+visible = false
+offset_right = 1280.0
+offset_bottom = 720.0
 
 [node name="Canvas" type="Node2D" parent="CharacterBody2D/Camera2D/Interface"]
 
@@ -208,7 +205,7 @@ script = ExtResource("3_0txoc")
 [node name="Debug" type="RichTextLabel" parent="CharacterBody2D/Camera2D/Interface"]
 offset_left = 10.0
 offset_top = 160.0
-offset_right = 210.0
+offset_right = 410.0
 offset_bottom = 200.0
 text = "DEBUG"
 
@@ -250,16 +247,19 @@ process_material = SubResource("ParticleProcessMaterial_xpj7m")
 texture_filter = 1
 texture = ExtResource("2_m81es")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="CharacterBody2D"]
+[node name="StarsLayer" type="CanvasLayer" parent="CharacterBody2D"]
 layer = -1
 
-[node name="ColorRect" type="ColorRect" parent="CharacterBody2D/CanvasLayer"]
+[node name="ColorRect" type="ColorRect" parent="CharacterBody2D/StarsLayer"]
 material = SubResource("ShaderMaterial_eqmm8")
 custom_minimum_size = Vector2(1920, 1080)
 offset_right = 1920.0
 offset_bottom = 1080.0
 script = ExtResource("4_r27f3")
 metadata/_edit_use_anchors_ = true
+
+[node name="Background" type="Node2D" parent="."]
+script = ExtResource("2_fgpvo")
 
 [node name="Asteroid" parent="." instance=ExtResource("7_imbn4")]
 position = Vector2(310, 140)

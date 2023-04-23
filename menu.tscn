@@ -1,13 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://coivutpp2emow"]
+[gd_scene load_steps=12 format=3 uid="uid://coivutpp2emow"]
 
 [ext_resource type="Shader" path="res://shaders/stars.gdshader" id="1_pqq62"]
 [ext_resource type="Theme" uid="uid://5n3h1qs0uw07" path="res://styles/main_ui.tres" id="1_x1t1r"]
 [ext_resource type="Texture2D" uid="uid://t0y2imme0gr" path="res://textures/logo.png" id="2_ideoo"]
 [ext_resource type="Script" path="res://scripts/Stars.gd" id="2_qj2it"]
 [ext_resource type="Script" path="res://scripts/Menu.gd" id="2_rpw4b"]
+[ext_resource type="ButtonGroup" uid="uid://df607ki5dt3ua" path="res://worlds.tres" id="4_4oxdx"]
 [ext_resource type="Texture2D" uid="uid://dht1068ha7imc" path="res://textures/ui.png" id="4_70vyp"]
 [ext_resource type="Script" path="res://scripts/Options/Sound.gd" id="5_2bims"]
 [ext_resource type="Script" path="res://scripts/Options/Graphics.gd" id="5_rhdy3"]
+[ext_resource type="PackedScene" uid="uid://coam8o7edqlxs" path="res://objects/Loading.tscn" id="10_fkkn7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kxwcg"]
 shader = ExtResource("1_pqq62")
@@ -20,6 +22,9 @@ shader_parameter/displacement = Vector2(0, 0)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
+
+[node name="Loading" parent="Camera2D" instance=ExtResource("10_fkkn7")]
+pos = Vector2(100, 1350)
 
 [node name="Menu" type="Control" parent="."]
 layout_mode = 3
@@ -34,18 +39,33 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_x1t1r")
 script = ExtResource("2_rpw4b")
+worlds_button_group = ExtResource("4_4oxdx")
 
 [node name="Main" type="MarginContainer" parent="Menu"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -200.0
-offset_top = -227.0
-offset_right = 200.0
-offset_bottom = 227.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -360.0
+offset_right = 640.0
+offset_bottom = 360.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="NPR" type="NinePatchRect" parent="Menu/Main"]
+layout_mode = 2
+
+[node name="Version" type="Label" parent="Menu/Main/NPR"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -19.0
+offset_right = 80.0
+grow_vertical = 0
 
 [node name="Center" type="CenterContainer" parent="Menu/Main"]
 layout_mode = 2
@@ -163,7 +183,7 @@ offset_bottom = 8.0
 text = "<BACK
 "
 
-[node name="Title" type="RichTextLabel" parent="Menu/Options/NinePatchRect/VBox/Control"]
+[node name="Title" type="Label" parent="Menu/Options/NinePatchRect/VBox/Control"]
 custom_minimum_size = Vector2(212, 40)
 layout_mode = 2
 offset_left = 174.0
@@ -172,6 +192,7 @@ offset_right = 386.0
 offset_bottom = 44.0
 size_flags_horizontal = 4
 size_flags_vertical = 0
+theme_override_font_sizes/font_size = 30
 text = "OPTIONS"
 
 [node name="Center" type="CenterContainer" parent="Menu/Options/NinePatchRect/VBox"]
@@ -448,6 +469,257 @@ custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 text = "BACK>"
 
+[node name="Single" type="MarginContainer" parent="Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -1020.0
+offset_right = 400.0
+offset_bottom = -420.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NPR" type="NinePatchRect" parent="Menu/Single"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("4_70vyp")
+region_rect = Rect2(0, 0, 60, 60)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 8
+
+[node name="VBox" type="VBoxContainer" parent="Menu/Single/NPR"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -382.0
+offset_top = -250.0
+offset_right = 382.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Panel" type="PanelContainer" parent="Menu/Single/NPR/VBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Scroll" type="ScrollContainer" parent="Menu/Single/NPR/VBox/Panel"]
+custom_minimum_size = Vector2(460, 0)
+layout_mode = 2
+
+[node name="WorldList" type="VBoxContainer" parent="Menu/Single/NPR/VBox/Panel/Scroll"]
+custom_minimum_size = Vector2(460, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Control" type="HBoxContainer" parent="Menu/Single/NPR/VBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="Play" type="Button" parent="Menu/Single/NPR/VBox/Control"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+disabled = true
+text = "PLAY"
+
+[node name="Delete" type="Button" parent="Menu/Single/NPR/VBox/Control"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+disabled = true
+text = "DELETE
+"
+
+[node name="Rename" type="Button" parent="Menu/Single/NPR/VBox/Control"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+disabled = true
+text = "RENAME
+"
+
+[node name="Create" type="Button" parent="Menu/Single/NPR/VBox/Control"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "CREATE"
+
+[node name="SingleBack" type="Button" parent="Menu/Single/NPR/VBox/Control"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 10
+text = "BACK
+"
+
+[node name="ConfirmDelete" type="NinePatchRect" parent="Menu/Single"]
+visible = false
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("4_70vyp")
+region_rect = Rect2(0, 0, 60, 60)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Single/ConfirmDelete"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -380.0
+offset_top = -83.5
+offset_right = 380.0
+offset_bottom = 83.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Margin" type="MarginContainer" parent="Menu/Single/ConfirmDelete/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_bottom = 100
+
+[node name="Label" type="Label" parent="Menu/Single/ConfirmDelete/VBoxContainer/Margin"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Are you sure you want to
+delete world?"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Single/ConfirmDelete/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Delete" type="Button" parent="Menu/Single/ConfirmDelete/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+text = "DELETE"
+
+[node name="Cancel" type="Button" parent="Menu/Single/ConfirmDelete/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "CANCEL"
+
+[node name="Create" type="MarginContainer" parent="Menu"]
+layout_mode = 0
+offset_left = -400.0
+offset_top = -1740.0
+offset_right = 400.0
+offset_bottom = -1140.0
+
+[node name="NPR" type="NinePatchRect" parent="Menu/Create"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("4_70vyp")
+region_rect = Rect2(0, 0, 60, 60)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 8
+
+[node name="VBox" type="VBoxContainer" parent="Menu/Create/NPR"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -382.0
+offset_top = -250.0
+offset_right = 382.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Panel" type="PanelContainer" parent="Menu/Create/NPR/VBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Margin" type="MarginContainer" parent="Menu/Create/NPR/VBox/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="Menu/Create/NPR/VBox/Panel/Margin"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="Menu/Create/NPR/VBox/Panel/Margin/VBox"]
+layout_mode = 2
+text = "World name"
+
+[node name="WorldName" type="LineEdit" parent="Menu/Create/NPR/VBox/Panel/Margin/VBox"]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Label4" type="Label" parent="Menu/Create/NPR/VBox/Panel/Margin/VBox"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Menu/Create/NPR/VBox/Panel/Margin/VBox"]
+layout_mode = 2
+text = "Difficulty"
+
+[node name="Difficulty" type="OptionButton" parent="Menu/Create/NPR/VBox/Panel/Margin/VBox"]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+size_flags_horizontal = 0
+item_count = 4
+selected = 0
+popup/item_0/text = "Easy"
+popup/item_0/id = 0
+popup/item_1/text = "Medium"
+popup/item_1/id = 1
+popup/item_2/text = "Hard"
+popup/item_2/id = 2
+popup/item_3/text = "Hell"
+popup/item_3/id = 3
+popup/item_3/disabled = true
+
+[node name="Label3" type="Label" parent="Menu/Create/NPR/VBox/Panel/Margin/VBox"]
+layout_mode = 2
+
+[node name="AllowCheats" type="CheckButton" parent="Menu/Create/NPR/VBox/Panel/Margin/VBox"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Allow cheats"
+
+[node name="Control" type="HBoxContainer" parent="Menu/Create/NPR/VBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="CreateWorld" type="Button" parent="Menu/Create/NPR/VBox/Control"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+disabled = true
+text = "CREATE NEW WORLD"
+
+[node name="CreateBack" type="Button" parent="Menu/Create/NPR/VBox/Control"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 10
+text = "BACK
+"
+
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -1
 
@@ -461,6 +733,7 @@ camera = NodePath("../../Camera2D")
 is_menu = true
 metadata/_edit_use_anchors_ = true
 
+[connection signal="pressed" from="Menu/Main/Center/VBox/VBox/Single" to="Menu" method="_on_single_pressed"]
 [connection signal="pressed" from="Menu/Main/Center/VBox/VBox/Options" to="Menu" method="_on_options_pressed"]
 [connection signal="pressed" from="Menu/Main/Center/VBox/VBox/Titles" to="Menu" method="_on_titles_pressed"]
 [connection signal="pressed" from="Menu/Main/Center/VBox/VBox/Exit" to="Menu" method="_on_exit_pressed"]
@@ -474,3 +747,9 @@ metadata/_edit_use_anchors_ = true
 [connection signal="value_changed" from="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Ambient/AmbientVolume" to="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound" method="_on_ambient_volume_value_changed"]
 [connection signal="value_changed" from="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Sounds/SoundVolume" to="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound" method="_on_sound_volume_value_changed"]
 [connection signal="pressed" from="Menu/Titles/NinePatchRect/MarginContainer/TitlesBack" to="Menu" method="_on_titles_back_pressed"]
+[connection signal="pressed" from="Menu/Single/NPR/VBox/Control/Play" to="Menu" method="_on_play_pressed"]
+[connection signal="pressed" from="Menu/Single/NPR/VBox/Control/Create" to="Menu" method="_on_create_pressed"]
+[connection signal="pressed" from="Menu/Single/NPR/VBox/Control/SingleBack" to="Menu" method="_on_options_back_pressed"]
+[connection signal="text_changed" from="Menu/Create/NPR/VBox/Panel/Margin/VBox/WorldName" to="Menu" method="_on_world_name_text_changed"]
+[connection signal="pressed" from="Menu/Create/NPR/VBox/Control/CreateWorld" to="Menu" method="_on_create_world_pressed"]
+[connection signal="pressed" from="Menu/Create/NPR/VBox/Control/CreateBack" to="Menu" method="_on_create_back_pressed"]

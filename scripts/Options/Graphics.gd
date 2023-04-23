@@ -58,7 +58,7 @@ func saveData(config: ConfigFile):
 	config.set_value("graphics", "max_fps", Engine.max_fps)
 
 func _ready():
-	Engine.max_fps = DisplayServer.screen_get_refresh_rate()
+	Engine.max_fps = int(DisplayServer.screen_get_refresh_rate())
 	vsync.select(DisplayServer.window_get_vsync_mode())
 	
 	for fps in fps_limits:
@@ -89,7 +89,6 @@ func _on_select_window_mode_item_selected(index):
 
 	for i in range(display_resolutions.size()):
 		var resolution = display_resolutions[i]
-		print(resolution.x, "-", display.x, " | ", resolution.y, "-", display.y)
 		if resolution.x == display.x && resolution.y == display.y:
 			resolution_dropdown.select(i)
 			return

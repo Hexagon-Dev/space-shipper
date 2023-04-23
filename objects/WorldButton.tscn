@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://tjw46lyrthjo"]
+
+[ext_resource type="ButtonGroup" uid="uid://df607ki5dt3ua" path="res://worlds.tres" id="1_ajblr"]
+[ext_resource type="Texture2D" uid="uid://b3gnd6c21lonj" path="res://textures/dot.png" id="2_8pmqc"]
+
+[node name="World" type="Button"]
+custom_minimum_size = Vector2(0, 120)
+size_flags_vertical = 3
+toggle_mode = true
+button_group = ExtResource("1_ajblr")
+
+[node name="HBox" type="HBoxContainer" parent="."]
+layout_mode = 2
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 754.0
+offset_bottom = 110.0
+
+[node name="MarginContainer" type="MarginContainer" parent="HBox"]
+layout_mode = 2
+theme_override_constants/margin_right = 10
+
+[node name="Screenshot" type="TextureRect" parent="HBox/MarginContainer"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+texture = ExtResource("2_8pmqc")
+
+[node name="Data" type="VBoxContainer" parent="HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="WorldName" type="Label" parent="HBox/Data"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "New world
+"
+
+[node name="PlayedAt" type="Label" parent="HBox/Data"]
+layout_mode = 2
+text = "2023-03-12 12:30"
+
+[node name="Difficulty" type="Label" parent="HBox/Data"]
+layout_mode = 2
+text = "Medium"
+
+[node name="Version" type="Label" parent="HBox/Data"]
+layout_mode = 2
+text = "Version: 0.0.1"

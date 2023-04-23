@@ -6,7 +6,7 @@ var player
 func _ready():
 	player = $/root/Game/CharacterBody2D
 
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed('f1'):
 		debug = !debug
 	queue_redraw()

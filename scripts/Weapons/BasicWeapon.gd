@@ -6,13 +6,9 @@ var bullets = max_bullets
 var bullets_fire_speed = 1
 var bullet_speed = 400
 var reloading = false
-var cursor
 var rocket = preload("res://objects/Rocket.tscn")
 var weaponOwner: RigidBody2D
 var type = "BasicWeapon"
-
-func _ready():
-	cursor = $/root/Game/CharacterBody2D/Camera2D/Interface/Cursor
 
 func _process(_delta):
 	if Input.is_action_pressed("right_click"):
@@ -24,11 +20,14 @@ func _process(_delta):
 			var b = rocket.instantiate()
 			$/root/Game.add_child(b)
 			b.global_position = point.get_global_position()
-			b.look_at(get_global_mouse_position())
+
+			var cursor = $/root/Game/CharacterBody2D/Camera2D/Interface/Cursor
+
+			b.look_at(cursor.global_position)
 			b.add_collision_exception_with(weaponOwner)
-			var velocity = (b.global_position - get_global_mouse_position()).normalized() * bullet_speed
+			var velocity = (b.get_global_transform_with_canvas().get_origin() - cursor.global_position).normalized() * bullet_speed
 			
-			b.linear_velocity = -velocity
+			b.linear_velocity = -velocity + weaponOwner.linear_velocity
 			weaponOwner.apply_impulse(velocity * 10)
 			if bullets:
 				bullets -= 1

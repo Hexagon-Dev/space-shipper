@@ -20,12 +20,12 @@ func _ready():
 	$Player/GPUParticles2DIdle.amount = int(mass / 20)
 	$Camera2D/Interface.initWeaponsUI()
 
-func _process(delta):
+func _process(_delta):
 	for i in len(weapons):
 		if Input.is_action_just_pressed('number_' + str(i + 1)):
 			current_weapon = weapons[i]
 
-func _integrate_forces(state):
+func _integrate_forces(_state):
 	mass = basic_weight + storage + fuel
 	fuel_consumption = player_speed * mass / 30000000000
 	
@@ -51,9 +51,9 @@ func _integrate_forces(state):
 	for col in get_colliding_bodies():
 		if col is RigidBody2D:
 			if col.name.contains('Asteroid'):
-				var damage = col.mass / mass
-				$Camera2D.add_trauma(damage * 20)
-				health -= damage
+				var damage_value = col.mass / mass
+				$Camera2D.add_trauma(damage_value * 20)
+				health -= damage_value
 
 func damage(source):
 	health -= source.damage_amount
