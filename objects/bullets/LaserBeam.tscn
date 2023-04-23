@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://crn0lts613g5h"]
+[gd_scene load_steps=8 format=3 uid="uid://b800rwpx7sk7m"]
 
-[ext_resource type="Script" path="res://scripts/Rocket.gd" id="1_x4wgq"]
-[ext_resource type="Texture2D" uid="uid://b3gnd6c21lonj" path="res://textures/dot.png" id="2_yk1oo"]
+[ext_resource type="Script" path="res://scripts/bullets/RocketBullet.gd" id="1_cgjk1"]
+[ext_resource type="Texture2D" uid="uid://rgmbr1qt1s3t" path="res://textures/bullets/laser_blue/laser_blue_beam.png" id="2_y14l6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x7lvi"]
+size = Vector2(22, 4.00014)
 
 [sub_resource type="Gradient" id="Gradient_whyh7"]
 colors = PackedColorArray(0.277528, 0.277528, 0.277528, 1, 1, 1, 1, 1)
@@ -39,19 +40,21 @@ hue_variation_min = -0.1
 hue_variation_max = 0.1
 
 [node name="Bullet" type="RigidBody2D"]
+rotation = 1.5708
 inertia = 3.0
 gravity_scale = 0.0
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("1_x4wgq")
+script = ExtResource("1_cgjk1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_yk1oo")
+texture_filter = 1
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_y14l6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.57079
 shape = SubResource("RectangleShape2D_x7lvi")
-one_way_collision = true
 
 [node name="Smoke" type="GPUParticles2D" parent="."]
 emitting = false

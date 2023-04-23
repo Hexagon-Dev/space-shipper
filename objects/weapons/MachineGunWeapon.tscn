@@ -1,13 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://bllgd6ipsjaaa"]
+[gd_scene load_steps=4 format=3]
 
-[ext_resource type="Script" path="res://scripts/Weapons/MachineGunWeapon.gd" id="1_1il7u"]
+[ext_resource type="Script" path="res://scripts/weapons/MachineGunWeapon.gd" id="1_1il7u"]
 [ext_resource type="Texture2D" uid="uid://b3gnd6c21lonj" path="res://textures/dot.png" id="1_bipin"]
+[ext_resource type="AudioStream" uid="uid://drkrb7rj7ildv" path="res://sounds/weapons/weapon_laser.wav" id="2_3bsdx"]
 
 [node name="MachineGunWeapon" type="Node2D"]
 script = ExtResource("1_1il7u")
 
-[node name="Point" type="Node2D" parent="."]
+[node name="Audio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_3bsdx")
 
-[node name="Sprite2D" type="Sprite2D" parent="Point"]
+[node name="Points" type="Node2D" parent="."]
+
+[node name="Point" type="Node2D" parent="Points"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Points/Point"]
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_bipin")

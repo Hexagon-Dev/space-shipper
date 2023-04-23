@@ -1,0 +1,71 @@
+[gd_scene load_steps=8 format=3 uid="uid://b20yjb3tv2h1"]
+
+[ext_resource type="Script" path="res://scripts/bullets/RocketBullet.gd" id="1_yo1d5"]
+[ext_resource type="Texture2D" uid="uid://b3gnd6c21lonj" path="res://textures/dot.png" id="2_ruk85"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x7lvi"]
+
+[sub_resource type="Gradient" id="Gradient_whyh7"]
+colors = PackedColorArray(0.277528, 0.277528, 0.277528, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_40lv0"]
+gradient = SubResource("Gradient_whyh7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_j4w46"]
+particle_flag_disable_z = true
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 70.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+damping_min = 50.0
+damping_max = 100.0
+scale_min = 5.0
+scale_max = 10.0
+color = Color(0.517647, 0.517647, 0.517647, 1)
+color_initial_ramp = SubResource("GradientTexture1D_40lv0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rw8pt"]
+particle_flag_disable_z = true
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_max = 30.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_max = 5.0
+color = Color(0.823529, 0.262745, 0, 1)
+hue_variation_min = -0.1
+hue_variation_max = 0.1
+
+[node name="Bullet" type="RigidBody2D"]
+inertia = 3.0
+gravity_scale = 0.0
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("1_yo1d5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ruk85")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.57079
+shape = SubResource("RectangleShape2D_x7lvi")
+
+[node name="Smoke" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_j4w46")
+lifetime = 4.0
+one_shot = true
+preprocess = 1.0
+speed_scale = 3.0
+fixed_fps = 60
+
+[node name="Fire" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_rw8pt")
+one_shot = true
+speed_scale = 3.0
+fixed_fps = 60

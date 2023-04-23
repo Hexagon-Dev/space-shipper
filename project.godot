@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Globals="*res://scripts/Globals.gd"
+UiSoundPlayer="*res://objects/UISoundPlayer.tscn"
 
 [display]
 
@@ -108,3 +109,8 @@ escape={
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/default_filters/use_nearest_mipmap_filter=true
+textures/default_filters/anisotropic_filtering_level=0
+textures/decals/filter=0
+textures/light_projectors/filter=0
+textures/canvas_textures/default_texture_filter=0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://coivutpp2emow"]
+[gd_scene load_steps=13 format=3 uid="uid://bjpg3xbe6jeni"]
 
 [ext_resource type="Shader" path="res://shaders/stars.gdshader" id="1_pqq62"]
 [ext_resource type="Theme" uid="uid://5n3h1qs0uw07" path="res://styles/main_ui.tres" id="1_x1t1r"]
@@ -7,9 +7,10 @@
 [ext_resource type="Script" path="res://scripts/Menu.gd" id="2_rpw4b"]
 [ext_resource type="ButtonGroup" uid="uid://df607ki5dt3ua" path="res://worlds.tres" id="4_4oxdx"]
 [ext_resource type="Texture2D" uid="uid://dht1068ha7imc" path="res://textures/ui.png" id="4_70vyp"]
-[ext_resource type="Script" path="res://scripts/Options/Sound.gd" id="5_2bims"]
-[ext_resource type="Script" path="res://scripts/Options/Graphics.gd" id="5_rhdy3"]
+[ext_resource type="Script" path="res://scripts/options/Graphics.gd" id="7_1w0b7"]
+[ext_resource type="Script" path="res://scripts/options/Sound.gd" id="8_q6vhh"]
 [ext_resource type="PackedScene" uid="uid://coam8o7edqlxs" path="res://objects/Loading.tscn" id="10_fkkn7"]
+[ext_resource type="AudioStream" uid="uid://cy76u1kg7fsvu" path="res://music/MainMenu.ogg" id="11_b6lvg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kxwcg"]
 shader = ExtResource("1_pqq62")
@@ -206,7 +207,7 @@ tab_alignment = 1
 
 [node name="Graphics" type="TabBar" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs"]
 layout_mode = 2
-script = ExtResource("5_rhdy3")
+script = ExtResource("7_1w0b7")
 
 [node name="Margin" type="MarginContainer" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Graphics"]
 custom_minimum_size = Vector2(560, 0)
@@ -294,7 +295,7 @@ size_flags_horizontal = 3
 [node name="Sound" type="TabBar" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs"]
 visible = false
 layout_mode = 2
-script = ExtResource("5_2bims")
+script = ExtResource("8_q6vhh")
 
 [node name="Margin" type="MarginContainer" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound"]
 custom_minimum_size = Vector2(560, 0)
@@ -720,6 +721,8 @@ size_flags_horizontal = 10
 text = "BACK
 "
 
+[node name="Audio" type="AudioStreamPlayer" parent="Menu"]
+
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -1
 
@@ -732,6 +735,11 @@ script = ExtResource("2_qj2it")
 camera = NodePath("../../Camera2D")
 is_menu = true
 metadata/_edit_use_anchors_ = true
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_b6lvg")
+autoplay = true
+bus = &"Music"
 
 [connection signal="pressed" from="Menu/Main/Center/VBox/VBox/Single" to="Menu" method="_on_single_pressed"]
 [connection signal="pressed" from="Menu/Main/Center/VBox/VBox/Options" to="Menu" method="_on_options_pressed"]

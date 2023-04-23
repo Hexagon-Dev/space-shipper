@@ -21,6 +21,7 @@ func _on_resume_pressed():
 	self.visible = false
 
 func _on_exit_pressed():
+	$/root/Menu/Music.play()
 	$/root/Menu.visible = true
 	$/root/Game.queue_free()
 	$/root/Menu/Camera2D.make_current()

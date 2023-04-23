@@ -148,6 +148,8 @@ func start_game(save_name: String):
 	world_instance.world_data = world_data
 	world_instance.seed = seed
 	get_tree().get_root().add_child(world_instance)
+	$/root/Menu/Music.stop()
+	$/root/Menu/Music.seek(0)
 	$/root/Menu.visible = false
 	$/root/Game/CharacterBody2D/Camera2D.make_current()
 	$/root/Game/CharacterBody2D/StarsLayer/ColorRect.init_stars(seed)

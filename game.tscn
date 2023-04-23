@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://c0c4peehlv0mt"]
+[gd_scene load_steps=24 format=3 uid="uid://c0c4peehlv0mt"]
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_dnvg5"]
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_ud5wx"]
@@ -15,7 +15,6 @@
 [ext_resource type="PackedScene" uid="uid://se3kdal6qneg" path="res://objects/Pause.tscn" id="6_06nwj"]
 [ext_resource type="Texture2D" uid="uid://43urswem7l6n" path="res://textures/icons/ammo.svg" id="7_b7nje"]
 [ext_resource type="FontFile" uid="uid://bvg1esa88ymyd" path="res://fonts/PressStart2P-Regular.ttf" id="7_ifv8g"]
-[ext_resource type="PackedScene" uid="uid://c2hkc0gk1k8fx" path="res://objects/Asteroid.tscn" id="7_imbn4"]
 [ext_resource type="Texture2D" uid="uid://dw75pqxvvw0po" path="res://textures/icons/health.svg" id="7_xchu4"]
 [ext_resource type="Texture2D" uid="uid://cdv10dej635bt" path="res://textures/icons/reload.svg" id="8_s3rjr"]
 [ext_resource type="Texture2D" uid="uid://c8a62x14lwfgs" path="res://textures/icons/infinity.svg" id="10_8oith"]
@@ -260,6 +259,3 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Background" type="Node2D" parent="."]
 script = ExtResource("2_fgpvo")
-
-[node name="Asteroid" parent="." instance=ExtResource("7_imbn4")]
-position = Vector2(310, 140)
