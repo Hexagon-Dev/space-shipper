@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Globals="*res://scripts/Globals.gd"
 UiSoundPlayer="*res://objects/UISoundPlayer.tscn"
+Config="*res://scripts/Config.gd"
 
 [display]
 

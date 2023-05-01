@@ -24,8 +24,22 @@ shader_parameter/displacement = Vector2(0, 0)
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
 
-[node name="Loading" parent="Camera2D" instance=ExtResource("10_fkkn7")]
-pos = Vector2(100, 1350)
+[node name="Margin" type="MarginContainer" parent="Camera2D"]
+custom_minimum_size = Vector2(1280, 720)
+offset_right = 1280.0
+offset_bottom = 720.0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="Loading" parent="Camera2D/Margin" instance=ExtResource("10_fkkn7")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
 
 [node name="Menu" type="Control" parent="."]
 layout_mode = 3
@@ -43,6 +57,7 @@ script = ExtResource("2_rpw4b")
 worlds_button_group = ExtResource("4_4oxdx")
 
 [node name="Main" type="MarginContainer" parent="Menu"]
+custom_minimum_size = Vector2(1280, 720)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -134,16 +149,12 @@ focus_previous = NodePath("../Titles")
 text = "EXIT"
 
 [node name="Options" type="MarginContainer" parent="Menu"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 852.0
-offset_top = -200.0
-offset_right = 1452.0
-offset_bottom = 200.0
-grow_horizontal = 2
-grow_vertical = 2
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 0
+offset_left = 530.0
+offset_top = -360.0
+offset_right = 1810.0
+offset_bottom = 360.0
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Menu/Options"]
 texture_filter = 1
@@ -320,7 +331,7 @@ layout_mode = 2
 size_flags_horizontal = 2
 text = "Master level"
 
-[node name="MasterVolume" type="HSlider" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Master"]
+[node name="Volume" type="HSlider" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Master"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 min_value = -80.0
@@ -344,7 +355,7 @@ layout_mode = 2
 size_flags_horizontal = 2
 text = "Music level"
 
-[node name="MusicVolume" type="HSlider" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Music"]
+[node name="Volume" type="HSlider" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Music"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 min_value = -80.0
@@ -368,7 +379,7 @@ layout_mode = 2
 size_flags_horizontal = 2
 text = "Ambient level"
 
-[node name="AmbientVolume" type="HSlider" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Ambient"]
+[node name="Volume" type="HSlider" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Ambient"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 min_value = -80.0
@@ -392,7 +403,7 @@ layout_mode = 2
 size_flags_horizontal = 2
 text = "Sound level"
 
-[node name="SoundVolume" type="HSlider" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Sounds"]
+[node name="Volume" type="HSlider" parent="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Sounds"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 min_value = -80.0
@@ -728,7 +739,7 @@ layer = -1
 
 [node name="ColorRect" type="ColorRect" parent="Background" node_paths=PackedStringArray("camera")]
 material = SubResource("ShaderMaterial_kxwcg")
-custom_minimum_size = Vector2(1920, 1080)
+custom_minimum_size = Vector2(1280, 720)
 offset_right = 1920.0
 offset_bottom = 1080.0
 script = ExtResource("2_qj2it")
@@ -750,10 +761,10 @@ bus = &"Music"
 [connection signal="item_selected" from="Menu/Options/NinePatchRect/VBox/Center/Tabs/Graphics/Margin/VBox/WindowMode/SelectWindowMode" to="Menu/Options/NinePatchRect/VBox/Center/Tabs/Graphics" method="_on_select_window_mode_item_selected"]
 [connection signal="item_selected" from="Menu/Options/NinePatchRect/VBox/Center/Tabs/Graphics/Margin/VBox/VSync/SelectVsync" to="Menu/Options/NinePatchRect/VBox/Center/Tabs/Graphics" method="_on_select_vsync_item_selected"]
 [connection signal="item_selected" from="Menu/Options/NinePatchRect/VBox/Center/Tabs/Graphics/Margin/VBox/MaxFPS/SelectMaxFPS" to="Menu/Options/NinePatchRect/VBox/Center/Tabs/Graphics" method="_on_select_max_fps_item_selected"]
-[connection signal="value_changed" from="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Master/MasterVolume" to="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound" method="_on_master_volume_value_changed"]
-[connection signal="value_changed" from="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Music/MusicVolume" to="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound" method="_on_music_volume_value_changed"]
-[connection signal="value_changed" from="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Ambient/AmbientVolume" to="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound" method="_on_ambient_volume_value_changed"]
-[connection signal="value_changed" from="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Sounds/SoundVolume" to="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound" method="_on_sound_volume_value_changed"]
+[connection signal="value_changed" from="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Master/Volume" to="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound" method="_on_master_volume_value_changed"]
+[connection signal="value_changed" from="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Music/Volume" to="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound" method="_on_music_volume_value_changed"]
+[connection signal="value_changed" from="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Ambient/Volume" to="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound" method="_on_ambient_volume_value_changed"]
+[connection signal="value_changed" from="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound/Margin/VBox/Sounds/Volume" to="Menu/Options/NinePatchRect/VBox/Center/Tabs/Sound" method="_on_sound_volume_value_changed"]
 [connection signal="pressed" from="Menu/Titles/NinePatchRect/MarginContainer/TitlesBack" to="Menu" method="_on_titles_back_pressed"]
 [connection signal="pressed" from="Menu/Single/NPR/VBox/Control/Play" to="Menu" method="_on_play_pressed"]
 [connection signal="pressed" from="Menu/Single/NPR/VBox/Control/Create" to="Menu" method="_on_create_pressed"]

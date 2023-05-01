@@ -28,4 +28,4 @@ func _process(_delta):
 		scene_position += Vector2.UP
 		material.set_shader_parameter("player_position", Vector2(camera.position.x, scene_position.y))
 	elif player:
-		material.set_shader_parameter("player_position", player.position)
+		material.set_shader_parameter("player_position", camera.position)

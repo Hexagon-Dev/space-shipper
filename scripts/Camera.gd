@@ -12,7 +12,7 @@ func _ready():
 	randomize()
 
 func add_trauma(amount):
-	if (trauma > 10):
+	if (trauma > 0):
 		return
 	trauma = min(trauma + amount, 1.0)
 

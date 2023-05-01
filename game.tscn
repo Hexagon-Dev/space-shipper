@@ -249,12 +249,13 @@ texture = ExtResource("2_m81es")
 [node name="StarsLayer" type="CanvasLayer" parent="CharacterBody2D"]
 layer = -1
 
-[node name="ColorRect" type="ColorRect" parent="CharacterBody2D/StarsLayer"]
+[node name="ColorRect" type="ColorRect" parent="CharacterBody2D/StarsLayer" node_paths=PackedStringArray("camera")]
 material = SubResource("ShaderMaterial_eqmm8")
 custom_minimum_size = Vector2(1920, 1080)
 offset_right = 1920.0
 offset_bottom = 1080.0
 script = ExtResource("4_r27f3")
+camera = NodePath("../../Camera2D")
 metadata/_edit_use_anchors_ = true
 
 [node name="Background" type="Node2D" parent="."]

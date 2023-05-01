@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cdieeuaevocl7" path="res://textures/asteroids/meteor_small2.png" id="2_gw4bl"]
 
 [node name="Asteroid" type="RigidBody2D"]
+mass = 100.0
 gravity_scale = 0.0
 script = ExtResource("1_70r1o")
 

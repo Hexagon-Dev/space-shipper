@@ -1,25 +1,22 @@
-extends Node2D
+extends Control
 
 @export var loading: bool = false
-@export var pos: Vector2 = Vector2.ZERO
-@export var radius: int = 50
-var loading_rotation = 0
-var screen = DisplayServer.window_get_size()
-
-var calculated_position
+var time: float
 
 func _ready():
-	calculated_position = Vector2(pos.x, pos.y)
+	Globals.connect("pending_events_changed", Callable(self, "on_pending_events_changed"))
+	
+func on_pending_events_changed():
+	print("pending_events_changed")
+	loading = Globals.getPendingEvents(["loading", "saving"]).size() > 0
 
-func _process(_delta):
-	queue_redraw()
-
-func _draw():
+func _process(delta):
+	if self.visible != loading:
+		self.visible = loading
+	
 	if loading:
-		if loading_rotation >= 360:
-			loading_rotation = 0
-		
-		loading_rotation += 2
-
-		draw_arc(calculated_position, radius, 0, deg_to_rad(360), 100, Color.WHITE, 10, true)
-		draw_arc(calculated_position, radius, deg_to_rad(0 + loading_rotation), deg_to_rad(90 + loading_rotation), 100, Color("#828A76"), 10, true)
+		time += delta * 2
+		self.modulate = Color(255, 255, 255, abs(sin(time)))
+		$Label.text = str(sin(time))
+	elif time != 0:
+		time = 0

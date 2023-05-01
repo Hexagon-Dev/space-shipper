@@ -11,7 +11,7 @@ var destination_position = Vector2.ZERO
 @onready var camera: Camera2D = $/root/Menu/Camera2D
 @onready var sound_options = $Options/NinePatchRect/VBox/Center/Tabs/Sound
 @onready var graphics_options = $Options/NinePatchRect/VBox/Center/Tabs/Graphics
-@onready var loader = $/root/Menu/Camera2D/Loading
+@onready var loader = $/root/Menu/Camera2D/Margin/Loading
 
 var world = preload("res://game.tscn")
 var world_button = preload("res://objects/WorldButton.tscn")
@@ -25,17 +25,9 @@ func _ready():
 	$Main/NPR/Version.text = Globals.version
 	
 	loader.loading = true
-	
-	var config = ConfigFile.new()
-	
-	var err = config.load("user://options.cfg")
-
-	if err:
-		loader.loading = false
-		return
 		
-	sound_options.loadData(config)
-	graphics_options.loadData(config)
+	sound_options.loadData(Config.config)
+	graphics_options.loadData(Config.config)
 	
 	loader.loading = false
 
@@ -81,12 +73,11 @@ func _on_options_pressed():
 
 func _on_options_back_pressed():
 	loader.loading = true
-	var config = ConfigFile.new()
 	
-	sound_options.saveData(config)
-	graphics_options.saveData(config)
+	sound_options.saveData(Config.config)
+	graphics_options.saveData(Config.config)
 	
-	config.save("user://options.cfg")
+	Config.save()
 
 	destination_position = MAIN_MENU
 	loader.loading = false
@@ -112,6 +103,8 @@ func _on_world_name_text_changed(new_text):
 	$Create/NPR/VBox/Control/CreateWorld.disabled = new_text.length() == 0
 
 func _on_create_world_pressed():
+	Globals.addPendingEvent("saving.world", true)
+	
 	var seed = randi_range(0, 1000000000)
 	var world_data = {
 		"name": $Create/NPR/VBox/Panel/Margin/VBox/WorldName.text,
@@ -132,12 +125,13 @@ func _on_create_world_pressed():
 	save_game.close()
 	
 	start_game(world_data.name)
+	Globals.removePendingEvent("saving.world")
 
-func start_game(save_name: String):
+func start_game(save_name: String) -> bool:
 	destination_position = MAIN_MENU
 	
 	if not FileAccess.file_exists("user://worlds/" + save_name + ".save"):
-		return
+		return false
 		
 	var save_game = FileAccess.open("user://worlds/" + save_name + ".save", FileAccess.READ)
 	
@@ -153,6 +147,8 @@ func start_game(save_name: String):
 	$/root/Menu.visible = false
 	$/root/Game/CharacterBody2D/Camera2D.make_current()
 	$/root/Game/CharacterBody2D/StarsLayer/ColorRect.init_stars(seed)
+	
+	return true
 
 func _on_play_pressed():
 	if selected_world:

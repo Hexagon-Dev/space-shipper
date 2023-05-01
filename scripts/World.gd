@@ -30,7 +30,10 @@ func _ready():
 		asteroid_obj.rotation = randi()
 
 func save():
+	Globals.addPendingEvent("saving.world", true)
+	
 	if not FileAccess.file_exists("user://worlds/" + world_data.name + ".save"):
+		Globals.removePendingEvent("saving.world")
 		return
 		
 	var save_game = FileAccess.open("user://worlds/" + world_data.name + ".save", FileAccess.WRITE)
@@ -40,3 +43,5 @@ func save():
 	save_game.store_line(Globals.version)
 	save_game.store_var($CharacterBody2D)
 	save_game.close()
+	
+	Globals.removePendingEvent("saving.world")

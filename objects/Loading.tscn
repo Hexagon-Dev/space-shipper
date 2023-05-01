@@ -1,8 +1,24 @@
-[gd_scene load_steps=2 format=3 uid="uid://coam8o7edqlxs"]
+[gd_scene load_steps=3 format=3 uid="uid://coam8o7edqlxs"]
 
 [ext_resource type="Script" path="res://scripts/Loading.gd" id="1_nqin3"]
+[ext_resource type="Texture2D" uid="uid://s5ur3e2j3fcw" path="res://textures/icons/save.png" id="2_ul31j"]
 
-[node name="Loading" type="Node2D"]
-position = Vector2(0, 1)
+[node name="Loading" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 1.0
+offset_bottom = 1.0
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_nqin3")
+
+[node name="Save" type="Sprite2D" parent="."]
+position = Vector2(16, 16)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_ul31j")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 2.0
+offset_top = -38.0
+offset_right = 112.0
+offset_bottom = -15.0
