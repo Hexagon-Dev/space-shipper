@@ -1,12 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://ckov1r252uxvw"]
+[gd_scene load_steps=4 format=3 uid="uid://ckov1r252uxvw"]
 
 [ext_resource type="Script" path="res://scripts/Asteroid.gd" id="1_1f4wr"]
+[ext_resource type="PhysicsMaterial" uid="uid://bt5y15iav1nif" path="res://materials/AsteroidMaterial.tres" id="1_5x4py"]
 [ext_resource type="Texture2D" uid="uid://ct7m7filr3ppr" path="res://textures/asteroids/meteor_tiny2.png" id="2_8011o"]
 
 [node name="Asteroid" type="RigidBody2D"]
 mass = 50.0
+physics_material_override = ExtResource("1_5x4py")
 gravity_scale = 0.0
+max_contacts_reported = 5
+contact_monitor = true
 script = ExtResource("1_1f4wr")
+max_mass = 50
+min_mass = 10
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -15,3 +21,7 @@ texture = ExtResource("2_8011o")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2(3, 1)
 polygon = PackedVector2Array(-3.74426, -8.65897, 5, -4, -1, 7, -10.7443, -0.65897)
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0

@@ -16,7 +16,7 @@ func processCollision():
 	if get_colliding_bodies()[0].name == "CharacterBody2D":
 		get_colliding_bodies()[0].damage(self)
 	else:
-		get_colliding_bodies()[0].queue_free()
+		get_colliding_bodies()[0].mass -= damage_amount
 	$Fire.emitting = true
 	$Smoke.emitting = true
 	if $Sprite2D:

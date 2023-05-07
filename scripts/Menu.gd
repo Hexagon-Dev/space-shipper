@@ -23,13 +23,8 @@ var difficulties = ["Easy", "Medium", "Hard", "Hell"]
 
 func _ready():
 	$Main/NPR/Version.text = Globals.version
-	
-	loader.loading = true
-		
-	sound_options.loadData(Config.config)
-	graphics_options.loadData(Config.config)
-	
-	loader.loading = false
+
+	Globals.addPendingEvent("loading.worlds", true)
 
 	for save in DirAccess.get_files_at("user://worlds/"):
 		var save_game = FileAccess.open("user://worlds/" + save, FileAccess.READ)
@@ -49,6 +44,8 @@ func _ready():
 		btn.get_node("HBox/Data/PlayedAt").text = world_data.played_at
 		btn.get_node("HBox/Data/Difficulty").text = difficulties[world_data.difficulty]
 		$Single/NPR/VBox/Panel/Scroll/WorldList.add_child(btn)
+		
+	Globals.removePendingEvent("loading.worlds")
 
 func _process(delta):
 	$Single/NPR/VBox/Control/Play.disabled = !selected_world
@@ -73,9 +70,6 @@ func _on_options_pressed():
 
 func _on_options_back_pressed():
 	loader.loading = true
-	
-	sound_options.saveData(Config.config)
-	graphics_options.saveData(Config.config)
 	
 	Config.save()
 

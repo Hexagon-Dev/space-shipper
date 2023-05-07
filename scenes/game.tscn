@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://c0c4peehlv0mt"]
+[gd_scene load_steps=26 format=3 uid="uid://c0c4peehlv0mt"]
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_dnvg5"]
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_ud5wx"]
@@ -18,6 +18,8 @@
 [ext_resource type="Texture2D" uid="uid://dw75pqxvvw0po" path="res://textures/icons/health.svg" id="7_xchu4"]
 [ext_resource type="Texture2D" uid="uid://cdv10dej635bt" path="res://textures/icons/reload.svg" id="8_s3rjr"]
 [ext_resource type="Texture2D" uid="uid://c8a62x14lwfgs" path="res://textures/icons/infinity.svg" id="10_8oith"]
+[ext_resource type="PackedScene" uid="uid://dibmprhq3ltjw" path="res://objects/asteroids/AsteroidBig1.tscn" id="19_7m8f7"]
+[ext_resource type="PhysicsMaterial" uid="uid://bt5y15iav1nif" path="res://materials/AsteroidMaterial.tres" id="20_sjjge"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4m50n"]
 bg_color = Color(0.176471, 0.227451, 0.227451, 1)
@@ -260,3 +262,13 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Background" type="Node2D" parent="."]
 script = ExtResource("2_fgpvo")
+
+[node name="Asteroid" parent="." instance=ExtResource("19_7m8f7")]
+position = Vector2(-128, -176)
+physics_material_override = ExtResource("20_sjjge")
+
+[node name="Asteroid2" parent="." instance=ExtResource("19_7m8f7")]
+position = Vector2(0, -176)
+
+[node name="Asteroid3" parent="." instance=ExtResource("19_7m8f7")]
+position = Vector2(128, -176)

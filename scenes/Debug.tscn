@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqwy8q4x23dr7"]
+
+[ext_resource type="PackedScene" uid="uid://dibmprhq3ltjw" path="res://objects/asteroids/AsteroidBig1.tscn" id="1_xs1ua"]
+
+[node name="Debug" type="Node2D"]
+position = Vector2(128, 128)
+
+[node name="Asteroid" parent="." instance=ExtResource("1_xs1ua")]
+
+[node name="Asteroid2" parent="." instance=ExtResource("1_xs1ua")]
+position = Vector2(128, 0)

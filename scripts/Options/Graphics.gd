@@ -23,48 +23,9 @@ const fps_limits = [30, 60, 75, 120, 144, 165, 240]
 @onready var vsync = $Margin/VBox/VSync/SelectVsync
 @onready var max_fps = $Margin/VBox/MaxFPS/SelectMaxFPS
 
-func loadData(config):
-	var window_mode_value = config.get_value("graphics", "window_mode")
-
-	if window_mode_value:
-		_on_select_window_mode_item_selected(window_mode_value)
-		window_mode.select(window_mode_value)
-	
-	var resolution_value = config.get_value("graphics", "resolution")
-	
-	if resolution_value && window_mode_value == 2:
-		_on_select_resolution_item_selected(resolution_value)
-		resolution_dropdown.select(resolution_value)
-	
-	var vsync_value = config.get_value("graphics", "vsync")
-	
-	if vsync_value:
-		_on_select_vsync_item_selected(vsync_value)
-		vsync.selected = vsync_value
-	
-	var max_fps_value = config.get_value("graphics", "max_fps")
-
-	if max_fps_value:
-		var index = fps_limits.find(max_fps_value, 0)
-		if !index:
-			return
-		_on_select_max_fps_item_selected(index)
-		max_fps.select(index)
-
-func saveData(config: ConfigFile):
-	config.set_value("graphics", "window_mode", window_mode.get_selected_id())
-	config.set_value("graphics", "resolution", resolution_dropdown.get_selected_id())
-	config.set_value("graphics", "vsync", vsync.selected)
-	config.set_value("graphics", "max_fps", Engine.max_fps)
-
 func _ready():
-	Engine.max_fps = int(DisplayServer.screen_get_refresh_rate())
-	vsync.select(DisplayServer.window_get_vsync_mode())
-	
 	for fps in fps_limits:
 		max_fps.add_item(str(fps))
-		
-	max_fps.select(fps_limits.find(Engine.max_fps, 0))
 	
 	var screen_size = DisplayServer.screen_get_size()
 
@@ -78,15 +39,64 @@ func _ready():
 	display_resolutions = resolutions
 	
 	for resolution in display_resolutions:
-		resolution_dropdown.add_item(str(resolution.x) + "×" + str(resolution.y))
+		resolution_dropdown.add_item(str(resolution.x) + "X" + str(resolution.y))
+		
+	var window_mode_value = Config.config.get_value("graphics", "window_mode")
+
+	if window_mode_value != null:
+		_on_select_window_mode_item_selected(window_mode_value)
+		window_mode.select(window_mode_value)
+	
+	var resolution_value = Config.config.get_value("graphics", "resolution")
+	
+	if resolution_value != null && window_mode_value == 2:
+		var key = getResolutionKey(resolution_value)
+		_on_select_resolution_item_selected(key)
+		resolution_dropdown.select(key)
+	
+	var vsync_value = Config.config.get_value("graphics", "vsync")
+	
+	if vsync_value != null:
+		_on_select_vsync_item_selected(vsync_value)
+		vsync.selected = vsync_value
+	else:
+		vsync.select(DisplayServer.window_get_vsync_mode())
+	
+	var max_fps_value = Config.config.get_value("graphics", "max_fps")
+
+	if max_fps_value != null:
+		var index = fps_limits.find(max_fps_value, 0)
+	
+		if index != null:
+			_on_select_max_fps_item_selected(index)
+			max_fps.select(index)
+	else:
+		Engine.max_fps = int(DisplayServer.screen_get_refresh_rate())
+		max_fps.select(fps_limits.find(Engine.max_fps, 0))
 
 func _on_select_resolution_item_selected(index):
 	DisplayServer.window_set_size(display_resolutions[index])
+	Config.config.set_value("graphics", "resolution", index)
+	var display = DisplayServer.window_get_size()
+	Config.config.set_value("graphics", "resolution", str(display.x) + "X" + str(display.y))
+
+func getResolutionKey(cur_resolution: String):
+	for i in range(display_resolutions.size()):
+		var resolution = display_resolutions[i]
+		if int(resolution.x) == int(cur_resolution.split('X')[0]) && int(resolution.y) == int(cur_resolution.split('X')[1]):
+			return i
+			
+	return null
 
 func _on_select_window_mode_item_selected(index):
+	resolution_dropdown.disabled = index != 2
+	
 	DisplayServer.window_set_mode(window_modes[index])
+	Config.config.set_value("graphics", "window_mode", index)
 	var display = DisplayServer.window_get_size()
+	Config.config.set_value("graphics", "resolution", str(display.x) + "X" + str(display.y))
 
+	# for statement needed to match resolution in select with user screen
 	for i in range(display_resolutions.size()):
 		var resolution = display_resolutions[i]
 		if resolution.x == display.x && resolution.y == display.y:
@@ -94,11 +104,13 @@ func _on_select_window_mode_item_selected(index):
 			return
 			
 	display_resolutions.push_back(display)
-	resolution_dropdown.add_item(str(display.x) + "×" + str(display.y))
+	resolution_dropdown.add_item(str(display.x) + "X" + str(display.y))
 	resolution_dropdown.select(display_resolutions.size() - 1)
 
 func _on_select_vsync_item_selected(index):
 	DisplayServer.window_set_vsync_mode(index)
+	Config.config.set_value("graphics", "vsync", index)
 
 func _on_select_max_fps_item_selected(index):
 	Engine.max_fps = fps_limits[index]
+	Config.config.set_value("graphics", "max_fps", Engine.max_fps)

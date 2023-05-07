@@ -51,9 +51,8 @@ func _integrate_forces(_state):
 	for col in get_colliding_bodies():
 		if col is RigidBody2D:
 			if col.name.contains('Asteroid'):
-				var damage_value = col.mass / mass
-				$Camera2D.add_trauma(damage_value)
-				health -= damage_value
+				var force = (col.linear_velocity - linear_velocity).length()
+				var damage = col.mass / 200 * force / 50
 
-func damage(source):
-	health -= source.damage_amount
+				$Camera2D.add_trauma(damage)
+				health -= damage
